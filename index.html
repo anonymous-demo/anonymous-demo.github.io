@@ -148,11 +148,13 @@ function submitHandler() {
 <div>
 	<h3>Weblead script's output onSubmit:</h3>
 	<iframe id='capture_log' src="http://attacking-party.appspot.com/email" width="300" height="150" seamless></iframe>
+	<p><i>In reality, the iFrame will be invisible, or a "pixel tag" will be used.</i>
 </div>
 
 </div>
 
 <div class="topleft">
+	<p><i>Script may try to safe the PII to send later.</i>
 	<h3>Cookies:</h3><div id="cookies_log"></div>
 	<h3>Storage:</h3><div id="storage_log"></div>
 	<button onclick="removeCookies(); removeStorage();">Clear all</button>
