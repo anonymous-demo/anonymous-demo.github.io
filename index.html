@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Test</title>
+<title>Demo</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 <style type="text/css">
 form {
@@ -49,7 +49,7 @@ textarea {
     padding-right: 5px;
     padding-bottom: 5px;
     padding-left: 10px;
-    width: 300px;
+    width: 320px;
     background-color: #b0e0e6;
     word-wrap: break-word;
 }
@@ -120,7 +120,7 @@ function submitHandler() {
 	setTimeout(function() { 
 		alert("Transition to the landing page"); 
 		document.forms[0].submit(); 
-	}, 2000); 
+	}, 1000); 
 	return false;                    
 }
 </script>
@@ -150,15 +150,15 @@ function submitHandler() {
 </div>
 
 <div>
-	<h3>Weblead script's output onSubmit:</h3>
+	<h3>Entered PII may leak via capturing script on form submission,<br>e.g. by loading an iFrame:</h3>
 	<iframe id='capture_log' src="http://attacking-party.appspot.com/email" width="300" height="150" seamless></iframe>
-	<p><i>In reality, the iFrame will be invisible, or a "pixel tag" will be used.</i>
+	<p>In reality, the iFrame will be invisible, or a "pixel tag" will be used.<br><i>In case of using FormLock, the request will be blocked.</i>
 </div>
 
 </div>
 
 <div class="topleft">
-	<p><i>Script may try to safe the PII to send later.</i>
+	<p>Leaking script may try to save PII to send later.<br><i>In case of using FormLock, new browsing data is being removed upon releasing the lock.</i>
 	<h3>Cookies:</h3><div id="cookies_log"></div>
 	<h3>Storage:</h3><div id="storage_log"></div>
 	<button onclick="removeCookies(); removeStorage();">Clear all</button>

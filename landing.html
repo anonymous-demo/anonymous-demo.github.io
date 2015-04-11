@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Test</title>
+<title>Demo</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 <style type="text/css">
 .topleft {
@@ -13,7 +13,7 @@
     padding-right: 5px;
     padding-bottom: 5px;
     padding-left: 10px;
-    width: 300px;
+    width: 320px;
     background-color: #b0e0e6;
     word-wrap: break-word;
 }
@@ -84,17 +84,22 @@ window.onload = function start() {
 <h2>Thank you!</h3>
 <p><a href="./index.html">Back to Main</a>
 </div>
+
 <div>
-	<h3>URL-grabbing script's output:</h3>
+	<h3>The PII may leak via URL that is captured and sent by a script:</h3>
 	<iframe id='url_log' src="http://attacking-party.appspot.com/url" width="300" height="150" seamless></iframe>
 </div>
 <div>
-	<h3>Referer-receiving iFrame:</h3>
+	<h3>The PII may leak via Referer header on loading third-party content:</h3>
 	<iframe id='referer_log' src="http://attacking-party.appspot.com/referer" width="300" height="150" seamless></iframe>
+</div>
+<div>
+	<p><i>In case of using FormLock, the requests will be blocked.</i>
 </div>
 </div>
 
 <div class="topleft">
+	<p>Leaking script may try to save PII to send later.<br><i>In case of using FormLock, new browsing data is being removed upon releasing the lock.</i>
 	<h3>Cookies:</h3><div id="cookies_log"></div>
 	<h3>Storage:</h3><div id="storage_log"></div>
 	<button onclick="removeCookies(); removeStorage();">Clear all</button>
